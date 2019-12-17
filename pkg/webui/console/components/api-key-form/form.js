@@ -62,17 +62,19 @@ class ApiKeyForm extends React.Component {
 }
 
 ApiKeyForm.propTypes = {
-  rights: PropTypes.arrayOf(PropTypes.string),
-  onSubmit: PropTypes.func.isRequired,
-  onSubmitSuccess: PropTypes.func,
-  onSubmitFailure: PropTypes.func,
-  validationSchema: PropTypes.object.isRequired,
+  children: PropTypes.node,
+  formError: PropTypes.error,
   horizontal: PropTypes.bool,
-  initialValues: PropTypes.object,
-  formError: PropTypes.object,
+  initialValues: PropTypes.shape({}),
+  onSubmit: PropTypes.func.isRequired,
+  onSubmitFailure: PropTypes.func,
+  onSubmitSuccess: PropTypes.func,
+  rights: PropTypes.rights,
+  validationSchema: PropTypes.shape({}).isRequired,
 }
 
 ApiKeyForm.defaultProps = {
+  children: undefined,
   rights: [],
   horizontal: true,
   initialValues: {},

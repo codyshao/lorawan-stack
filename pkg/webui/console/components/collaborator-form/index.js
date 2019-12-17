@@ -61,8 +61,8 @@ export default class CollaboratorForm extends Component {
     onSubmit: PropTypes.func.isRequired,
     onSubmitFailure: PropTypes.func,
     onSubmitSuccess: PropTypes.func,
-    rights: PropTypes.rights.isRequired,
     pseudoRights: PropTypes.rights,
+    rights: PropTypes.rights.isRequired,
     update: PropTypes.bool,
   }
 

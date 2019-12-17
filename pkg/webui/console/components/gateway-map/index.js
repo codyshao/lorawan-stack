@@ -17,6 +17,21 @@ import PropTypes from 'prop-types'
 import MapWidget from '../../../components/map/widget/'
 
 export default class GatewayMap extends React.Component {
+  static propTypes = {
+    // Gateway is an object.
+    gateway: PropTypes.shape({
+      antennas: PropTypes.Array,
+      // Ids is an object containing gateway_id which is a string.
+      ids: PropTypes.shape({
+        gateway_id: PropTypes.string.isRequired,
+      }).isRequired,
+    }),
+  }
+
+  static defaultProps = {
+    gateway: {},
+  }
+
   render() {
     const { gateway } = this.props
     const { gateway_id } = gateway.ids
@@ -39,19 +54,4 @@ export default class GatewayMap extends React.Component {
       />
     )
   }
-}
-
-GatewayMap.propTypes = {
-  // Gateway is an object.
-  gateway: PropTypes.shape({
-    antennas: PropTypes.Array,
-    // Ids is an object containing gateway_id which is a string.
-    ids: PropTypes.shape({
-      gateway_id: PropTypes.string.isRequired,
-    }).isRequired,
-  }),
-}
-
-GatewayMap.defaultProps = {
-  gateway: {},
 }

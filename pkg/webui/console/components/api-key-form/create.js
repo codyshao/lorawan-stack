@@ -34,6 +34,37 @@ class CreateForm extends React.Component {
     modal: null,
   }
 
+  static propTypes = {
+    /**
+     * Called on form submission.
+     * Receives the key object as an argument.
+     */
+    onCreate: PropTypes.func.isRequired,
+    /**
+     * Called after unsuccessful creation of the API key.
+     * Receives the error object as an argument.
+     */
+    onCreateFailure: PropTypes.func,
+    /**
+     * Called after successful creation of the API key.
+     * Receives the key object as an argument.
+     */
+    onCreateSuccess: PropTypes.func,
+    /**
+     * The rights that imply all other rights, e.g. 'RIGHT_APPLICATION_ALL', 'RIGHT_ALL'
+     */
+    pseudoRights: PropTypes.rights,
+    /** The list of rights */
+    rights: PropTypes.rights,
+  }
+
+  static defaultProps = {
+    onCreateSuccess: () => null,
+    onCreateFailure: () => null,
+    pseudoRights: [],
+    rights: [],
+  }
+
   async handleModalApprove() {
     const { onCreateSuccess } = this.props
     const { key } = this.state
@@ -106,37 +137,6 @@ class CreateForm extends React.Component {
       </React.Fragment>
     )
   }
-}
-
-CreateForm.propTypes = {
-  /** The list of rights */
-  rights: PropTypes.arrayOf(PropTypes.string),
-  /**
-   * The rights that imply all other rights, e.g. 'RIGHT_APPLICATION_ALL', 'RIGHT_ALL'
-   */
-  pseudoRights: PropTypes.arrayOf(PropTypes.string),
-  /**
-   * Called after successful creation of the API key.
-   * Receives the key object as an argument.
-   */
-  onCreateSuccess: PropTypes.func,
-  /**
-   * Called after unsuccessful creation of the API key.
-   * Receives the error object as an argument.
-   */
-  onCreateFailure: PropTypes.func,
-  /**
-   * Called on form submission.
-   * Receives the key object as an argument.
-   */
-  onCreate: PropTypes.func.isRequired,
-}
-
-CreateForm.defaultProps = {
-  rights: [],
-  onCreateSuccess: () => null,
-  onCreateFailure: () => null,
-  pseudoRights: [],
 }
 
 export default CreateForm

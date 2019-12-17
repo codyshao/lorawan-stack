@@ -134,9 +134,9 @@ class GatewayDataForm extends React.Component {
 GatewayDataForm.propTypes = {
   children: PropTypes.node.isRequired,
   error: PropTypes.error,
-  formRef: PropTypes.object,
-  initialValues: PropTypes.object,
-  mapErrorsToFields: PropTypes.object,
+  formRef: PropTypes.shape({}),
+  initialValues: PropTypes.shape({}),
+  mapErrorsToFields: PropTypes.shape({}),
   /** React reference to be passed to the form */
   onSubmit: PropTypes.func.isRequired,
   /** SubmitBar contents */
@@ -144,6 +144,7 @@ GatewayDataForm.propTypes = {
 }
 
 GatewayDataForm.defaultProps = {
+  formRef: undefined,
   update: false,
   error: '',
   initialValues: {},

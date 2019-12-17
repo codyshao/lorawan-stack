@@ -74,6 +74,32 @@ export default class WebhookForm extends Component {
     this.form = React.createRef()
   }
 
+  static propTypes = {
+    appId: PropTypes.string,
+    initialWebhookValue: PropTypes.shape({
+      ids: PropTypes.shape({
+        webhook_id: PropTypes.string,
+      }),
+    }),
+    onDelete: PropTypes.func,
+    onDeleteFailure: PropTypes.func,
+    onDeleteSuccess: PropTypes.func,
+    onSubmit: PropTypes.func.isRequired,
+    onSubmitFailure: PropTypes.func,
+    onSubmitSuccess: PropTypes.func,
+    update: PropTypes.bool.isRequired,
+  }
+
+  static defaultProps = {
+    appId: undefined,
+    initialWebhookValue: undefined,
+    onSubmitSuccess: () => null,
+    onSubmitFailure: () => null,
+    onDeleteSuccess: () => null,
+    onDeleteFailure: () => null,
+    onDelete: () => null,
+  }
+
   state = {
     error: '',
   }
@@ -234,23 +260,4 @@ export default class WebhookForm extends Component {
       </Form>
     )
   }
-}
-
-WebhookForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onSubmitSuccess: PropTypes.func,
-  onSubmitFailure: PropTypes.func,
-  onDelete: PropTypes.func,
-  onDeleteSuccess: PropTypes.func,
-  onDeleteFailure: PropTypes.func,
-  update: PropTypes.bool.isRequired,
-  initialWebhookValue: PropTypes.object,
-}
-
-WebhookForm.defaultProps = {
-  onSubmitSuccess: () => null,
-  onSubmitFailure: () => null,
-  onDeleteSuccess: () => null,
-  onDeleteFailure: () => null,
-  onDelete: () => null,
 }
