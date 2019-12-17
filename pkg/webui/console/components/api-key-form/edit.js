@@ -46,11 +46,7 @@ class EditForm extends React.Component {
 
   static propTypes = {
     /** The API key to be edited */
-    apiKey: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      rights: PropTypes.rights.isRequired,
-      name: PropTypes.string,
-    }),
+    apiKey: PropTypes.apiKey,
     /**
      * Called on key deletion.
      * Receives the identifier of the API key as an argument.
