@@ -23,6 +23,7 @@ import sharedMessages from '../../../lib/shared-messages'
 
 import { getPubsubsList } from '../../../console/store/actions/pubsubs'
 import { natsUrl as natsUrlRegexp } from '../../lib/regexp'
+import PropTypes from '../../../lib/prop-types'
 
 const m = defineMessages({
   format: 'Format',
@@ -81,6 +82,10 @@ export default class PubsubsTable extends React.Component {
 
     const { appId } = props
     this.getPubsubsList = () => getPubsubsList(appId)
+  }
+
+  static propTypes = {
+    appId: PropTypes.string.isRequired,
   }
 
   baseDataSelector({ pubsubs }) {

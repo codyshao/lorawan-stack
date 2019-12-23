@@ -20,6 +20,7 @@ import FetchTable from '../fetch-table'
 import Message from '../../../lib/components/message'
 
 import sharedMessages from '../../../lib/shared-messages'
+import PropTypes from '../../../lib/prop-types'
 
 import { getWebhooksList } from '../../../console/store/actions/webhooks'
 
@@ -53,6 +54,10 @@ export default class WebhooksTable extends React.Component {
 
     const { appId } = props
     this.getWebhooksList = () => getWebhooksList(appId)
+  }
+
+  static PropTypes = {
+    appId: PropTypes.string.isRequired,
   }
 
   baseDataSelector({ webhooks }) {

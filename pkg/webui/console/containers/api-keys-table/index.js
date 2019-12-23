@@ -73,6 +73,17 @@ const headers = [
 ]
 
 export default class ApiKeysTable extends Component {
+  static propTypes = {
+    baseDataSelector: PropTypes.func.isRequired,
+    entityId: PropTypes.string,
+    getItemsAction: PropTypes.func.isRequired,
+    pageSize: PropTypes.number.isRequired,
+  }
+
+  static defaultProps = {
+    entityId: undefined,
+  }
+
   render() {
     const { pageSize, baseDataSelector, getItemsAction, entityId } = this.props
 
@@ -89,11 +100,4 @@ export default class ApiKeysTable extends Component {
       />
     )
   }
-}
-
-ApiKeysTable.propTypes = {
-  baseDataSelector: PropTypes.func.isRequired,
-  entityId: PropTypes.string,
-  getItemsAction: PropTypes.func.isRequired,
-  pageSize: PropTypes.number.isRequired,
 }
