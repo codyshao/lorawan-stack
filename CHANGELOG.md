@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Forwarding of backend warnings to the Console.
 - Auth Info service to the JavaScript SDK.
 - Subscribable events to the JavaScript SDK.
+- Entity search by ID in the Console.
 
 ### Changed
 
