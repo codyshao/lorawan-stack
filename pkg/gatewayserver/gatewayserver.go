@@ -389,7 +389,7 @@ func (gs *GatewayServer) Connect(ctx context.Context, frontend io.Frontend, ids 
 		return nil, err
 	}
 
-	var fps []*frequencyplans.FrequencyPlan
+	fps := make([]*frequencyplans.FrequencyPlan, len(gtw.FrequencyPlanIDs))
 	for _, fpID := range gtw.FrequencyPlanIDs {
 		fp, err := gs.FrequencyPlans.GetByID(fpID)
 		if err != nil {
@@ -602,7 +602,7 @@ func (gs *GatewayServer) handleUpstream(conn *io.Connection) {
 	}
 }
 
-// GetFrequencyPlan gets the frequency plans by the gateway identifiers.
+// GetFrequencyPlans gets the frequency plans by the gateway identifiers.
 func (gs *GatewayServer) GetFrequencyPlans(ctx context.Context, ids ttnpb.GatewayIdentifiers) ([]*frequencyplans.FrequencyPlan, error) {
 	var err error
 	var callOpt grpc.CallOption
@@ -632,7 +632,8 @@ func (gs *GatewayServer) GetFrequencyPlans(ctx context.Context, ids ttnpb.Gatewa
 	} else {
 		return nil, err
 	}
-	var fps []*frequencyplans.FrequencyPlan
+
+	fps := make([]*frequencyplans.FrequencyPlan, len(fpIDs))
 	for _, fpID := range fpIDs {
 		fp, err := gs.FrequencyPlans.GetByID(fpID)
 		if err != nil {
