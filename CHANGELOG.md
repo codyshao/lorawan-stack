@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Support for adjusting the time that the Gateway Server schedules class C messages in advance per gateway.
+  - This requires a database migration (`ttn-lw-stack is-db migrate`) because of the added columns.
+
 ### Changed
 
 ### Deprecated

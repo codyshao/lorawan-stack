@@ -36,6 +36,7 @@ func TestGatewayStore(t *testing.T) {
 		prepareTest(db, &Gateway{}, &GatewayAntenna{}, &Attribute{})
 		store := GetGatewayStore(db)
 
+		scheduleAnytimeDelay := time.Second
 		created, err := store.CreateGateway(ctx, &ttnpb.Gateway{
 			GatewayIdentifiers: ttnpb.GatewayIdentifiers{
 				GatewayID: "foo",
@@ -51,6 +52,7 @@ func TestGatewayStore(t *testing.T) {
 			Antennas: []ttnpb.GatewayAntenna{
 				{Gain: 3, Location: ttnpb.Location{Latitude: 12.345, Longitude: 23.456, Altitude: 1090, Accuracy: 1}},
 			},
+			ScheduleAnytimeDelay: &scheduleAnytimeDelay,
 		})
 
 		a.So(err, should.BeNil)
@@ -64,6 +66,7 @@ func TestGatewayStore(t *testing.T) {
 			}
 			a.So(created.CreatedAt, should.HappenAfter, time.Now().Add(-1*time.Hour))
 			a.So(created.UpdatedAt, should.HappenAfter, time.Now().Add(-1*time.Hour))
+			a.So(*created.ScheduleAnytimeDelay, should.Equal, time.Second)
 		}
 
 		got, err := store.GetGateway(ctx, &ttnpb.GatewayIdentifiers{GatewayID: "foo"}, &pbtypes.FieldMask{Paths: []string{"name", "attributes"}})
@@ -106,7 +109,8 @@ func TestGatewayStore(t *testing.T) {
 				{Gain: 6, Location: ttnpb.Location{Latitude: 12.345, Longitude: 23.456, Altitude: 1090, Accuracy: 1}, Attributes: map[string]string{"direction": "west"}},
 				{Gain: 6, Location: ttnpb.Location{Latitude: 12.345, Longitude: 23.456, Altitude: 1090, Accuracy: 1}, Attributes: map[string]string{"direction": "east"}},
 			},
-		}, &pbtypes.FieldMask{Paths: []string{"description", "attributes", "antennas"}})
+			ScheduleAnytimeDelay: nil,
+		}, &pbtypes.FieldMask{Paths: []string{"description", "attributes", "antennas", "schedule_anytime_delay"}})
 
 		a.So(err, should.BeNil)
 		if a.So(updated, should.NotBeNil) {
@@ -120,6 +124,7 @@ func TestGatewayStore(t *testing.T) {
 			}
 			a.So(updated.CreatedAt, should.Equal, created.CreatedAt)
 			a.So(updated.UpdatedAt, should.HappenAfter, created.CreatedAt)
+			a.So(*updated.ScheduleAnytimeDelay, should.Equal, time.Duration(0))
 		}
 
 		got, err = store.GetGateway(ctx, &ttnpb.GatewayIdentifiers{GatewayID: "foo"}, nil)
