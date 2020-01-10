@@ -90,7 +90,8 @@ type Connection struct {
 // NewConnection instantiates a new gateway connection.
 func NewConnection(ctx context.Context, frontend Frontend, gateway *ttnpb.Gateway, fps []*frequencyplans.FrequencyPlan, enforceDutyCycle bool) (*Connection, error) {
 	ctx, cancelCtx := errorcontext.New(ctx)
-	scheduler, err := scheduling.NewScheduler(ctx, fp, enforceDutyCycle, nil)
+	// All frequency plans are from the same band, so choosing the first one.
+	scheduler, err := scheduling.NewScheduler(ctx, fps[0], enforceDutyCycle, nil)
 	if err != nil {
 		return nil, err
 	}
